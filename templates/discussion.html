@@ -3,41 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discussion - Linkora</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
+    <title>Discussion - {{ groupe.nom }}</title>
+ <link rel="stylesheet" href="/static/css/style.css"></head>
 <body>
-
     <div class="discussion-container">
+        <!-- EN-TÊTE -->
         <header class="discussion-header">
-            <a href="/" class="retour">←</a>
             <div>
-                <h2>{{ groupe.nom }}</h2>
-                <p>Groupe de discussion</p>
+                <h1>{{ groupe.nom }}</h1>
+                <p>Discussion de groupe</p>
             </div>
+            <a href="/">Retour</a>
         </header>
+        <!-- MESSAGES -->
         <main class="messages-container">
             {% for message in messages %}
                 <div class="message">
-                    <strong>{{ message.auteur.username }}</strong>
-                    <p>{{ message.contenu }}</p>
-                    <span class="message-date">
-                        {{ message.date_envoi.strftime('%d/%m/%Y %H:%M') }}
-                    </span>
+                    <div class="message-author">
+                        {{ message.auteur.username }}
+                    </div>
+                    {% if message.contenu %}
+                        <p class="message-text">
+                            {{ message.contenu }}
+                        </p>
+                    {% endif %}
+                    {% if message.image %}
+                        <div class="image-message">
+                            <img src="/static/{{ message.image }}"alt="Image envoyée"class="message-image">
+                        </div>
+                    {% endif %}
+                    <div class="message-date">
+                        {{ message.date_envoi.strftime("%d/%m/%Y à %H:%M") }}
+                    </div>
                 </div>
             {% else %}
-                <p class="aucun-message">
+                <p class="empty-message">
                     Aucun message pour le moment.
+                    Commencez la conversation !
                 </p>
             {% endfor %}
 
         </main>
-        <form action="/envoyer_message" method="post" class="form-message">
-            <input type="hidden" name="groupe_id" value="{{ groupe.id }}">
-            <input type="text"name="contenu"placeholder="Écrire un message..."required>
-            <button type="submit">Envoyer</button>
+        <!-- FORMULAIRE -->
+        <form
+            action="/envoyer_message"method="POST"enctype="multipart/form-data" class="message-form">
+            <input type="hidden"name="groupe_id"value="{{ groupe.id }}">
+            <textarea name="contenu"placeholder="Écris ton message..."></textarea>
+            <div class="message-actions">
+               <label for="image" class="image-label">📷 Image</label>
+                <input type="file"name="image"id="image"accept="image/*"hidden>
+                <button type="submit"> Envoyer ➤</button>
+            </div>
         </form>
     </div>
-
 </body>
 </html>

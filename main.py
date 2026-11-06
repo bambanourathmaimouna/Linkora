@@ -114,7 +114,6 @@ def inscrire_utilisateur(
     db: Session = Depends(get_db)
 ):
     groupe = db.query(Groupe).filter_by(id=groupe_id).first()
-
     if not groupe:
         raise HTTPException(status_code=404, detail="Groupe introuvable")
 

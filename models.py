@@ -28,12 +28,17 @@ class Groupe(Base):
     membres = relationship( "Utilisateur",secondary=membres_groupe, back_populates="groupes")
     messages = relationship("Message", back_populates="groupe")
 
+
 class Message(Base):
     __tablename__ = "messages"
     id: Mapped[int] = mapped_column(primary_key=True)
-    contenu: Mapped[str] = mapped_column(Text)
-    date_envoi: Mapped[datetime] = mapped_column( DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
-    utilisateur_id: Mapped[int] = mapped_column( ForeignKey("utilisateurs.id"))
+    contenu: Mapped[str | None] = mapped_column(Text, nullable=True)
+    image: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    date_envoi: Mapped[datetime] = mapped_column(DateTime(timezone=True),default=lambda: datetime.now(timezone.utc))
+    utilisateur_id: Mapped[int] = mapped_column(ForeignKey("utilisateurs.id"))
     groupe_id: Mapped[int] = mapped_column(ForeignKey("groupes.id"))
     auteur = relationship("Utilisateur", back_populates="messages")
     groupe = relationship("Groupe", back_populates="messages")
+
+
+
