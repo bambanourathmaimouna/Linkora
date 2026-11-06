@@ -1,0 +1,25 @@
+[project]
+name = "whatsapp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "bambanourathmaimouna", email = "bambanourathmaimouna@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.162.0",
+    "itsdangerous>=2.2.0",
+    "jinja2>=3.1.6",
+    "pwdlib[argon2]>=0.3.1",
+    "python-multipart>=0.0.33",
+    "sqlalchemy>=2.1.8",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.scripts]
+whatsapp = "whatsapp:main"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"

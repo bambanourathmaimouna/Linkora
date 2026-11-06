@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Linkora</title>
+   <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="page-connexion">
+    <header class="navbar">
+        <div class="logo">Linkora</div>
+        <nav>
+            <a href="/">Accueil</a>
+        </nav>
+    </header>
+    {% if erreur %}
+        <div class="message-erreur">
+            {{ erreur }}
+        </div>
+    {% endif %}
+    <main class="connexion-container">
+        <div class="connexion-card">
+            <div class="connexion-icone">✦</div>
+            <h1>Créer un compte</h1>
+            <p class="connexion-description">
+                Rejoignez notre communauté et commencez à discuter.
+            </p>
+            <div class="groupe-selectionne">
+                Groupe sélectionné :
+                <strong>{{ groupe.nom }}</strong>
+            </div>
+            <form action="/inscription/{{ groupe.id }}" method="POST">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text"id="username"name="username"placeholder="Choisissez un nom d'utilisateur"required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresse email</label>
+                    <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="mot_de_passe">Mot de passe</label>
+                    <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Choisissez un mot de passe" minlength="8"required >
+                </div>
+                <button type="submit" class="connexion-bouton">
+                    Créer mon compte →
+                </button>
+            </form>
+            <p class="inscription-lien">
+                Vous avez déjà un compte ?
+                <a href="/connexion/{{ groupe.id }}">Se connecter</a>
+            </p>
+            <a href="/" class="retour">← Retour aux groupes</a>
+        </div>
+    </main>
+    <footer>
+        © 2026 WhatsApp - Tous droits réservés.
+    </footer>
+</body>
+</html>

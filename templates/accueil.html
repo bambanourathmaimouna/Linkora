@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Discussion - Linkora</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Linkora</div>
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="#groupes">Mes groupes</a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <p class="badge">BIENVENUE SUR NOTRE PLATEFORME</p>
+            <h1>Connectez-vous au monde.</h1>
+            <p>
+                Rejoignez des communautés, partagez vos idées
+                et échangez avec des personnes qui partagent vos intérêts.
+            </p>
+        </section>
+        <section class="groupes" id="groupes">
+            <h2>Explorez nos communautés</h2>
+            <p class="subtitle">
+                Choisissez un groupe pour commencer votre aventure.
+            </p>
+            <div class="groupes-container">
+                {% for groupe in groupes %}
+                <div class="carte">
+                    <div class="icone">
+                        {% if groupe.nom == "Santé" %}
+                            ♥
+                        {% elif groupe.nom == "Sport" %}
+                            ⚽
+                        {% elif groupe.nom == "Éducation" %}
+                            📚
+                        {% else %}
+                            ✦
+                        {% endif %}
+                    </div>
+                    <h3>{{ groupe.nom }}</h3>
+                    <p>{{ groupe.description }}</p>
+                    <a href="/connexion/{{ groupe.id }}" class="bouton">
+                        Rejoindre le groupe →
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2026 WhatsApp - Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

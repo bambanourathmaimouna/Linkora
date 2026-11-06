@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion - Linkora</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <div class="discussion-container">
+        <header class="discussion-header">
+            <a href="/" class="retour">←</a>
+            <div>
+                <h2>{{ groupe.nom }}</h2>
+                <p>Groupe de discussion</p>
+            </div>
+        </header>
+        <main class="messages-container">
+            {% for message in messages %}
+                <div class="message">
+                    <strong>{{ message.auteur.username }}</strong>
+                    <p>{{ message.contenu }}</p>
+                    <span class="message-date">
+                        {{ message.date_envoi.strftime('%d/%m/%Y %H:%M') }}
+                    </span>
+                </div>
+            {% else %}
+                <p class="aucun-message">
+                    Aucun message pour le moment.
+                </p>
+            {% endfor %}
+
+        </main>
+        <form action="/envoyer_message" method="post" class="form-message">
+            <input type="hidden" name="groupe_id" value="{{ groupe.id }}">
+            <input type="text"name="contenu"placeholder="Écrire un message..."required>
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+</body>
+</html>

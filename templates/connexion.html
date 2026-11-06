@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Linkora</title>
+   <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="page-connexion">
+    <header class="navbar">
+        <div class="logo">Linkora</div>
+        <nav>
+            <a href="/">Accueil</a>
+        </nav>
+    </header>
+    <main class="connexion-container">
+        <div class="connexion-card">
+            <div class="connexion-icone">✦</div>
+            <h1>Bon retour !</h1>
+            <p class="connexion-description">
+                Connectez-vous pour retrouver votre communauté.
+            </p>
+            <div class="groupe-selectionne">
+                Groupe sélectionné :
+                <strong>{{ groupe.nom }}</strong>
+            </div>
+            {% if erreur %}
+                <div class="message-erreur">
+                    {{ erreur }}
+                </div>
+            {% endif %}
+            <form action="/connexion/{{ groupe.id }}" method="POST">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input
+                        type="text"id="username"name="username" placeholder="Votre nom d'utilisateur" required>
+                </div>
+                <div class="form-group">
+                    <label for="mot_de_passe">Mot de passe</label>
+                    <input type="password"id="mot_de_passe"name="mot_de_passe"placeholder="Votre mot de passe"required>
+                </div>
+                <button type="submit" class="connexion-bouton">
+                    Se connecter →
+                </button>
+            </form>
+            <p class="inscription-lien">
+                Vous n'avez pas de compte ?
+                <a href="/inscription/{{ groupe.id }}">Créer un compte</a>
+            </p>
+            <a href="/" class="retour">← Retour aux groupes</a>
+        </div>
+    </main>
+    <footer>
+        © 2026 WhatsApp - Tous droits réservés.
+    </footer>
+</body>
+</html>
